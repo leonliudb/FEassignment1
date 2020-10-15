@@ -1,6 +1,6 @@
 import yfinance as yf
 import pandas as pd
-
+import matplotlib.pyplot as plt
 
 ##1) Download daily prices from of Bitcoin (BIT-USD) from Yahoo for period 9/17/2014-9/30/2020.
 
@@ -15,6 +15,9 @@ btc_df = pd.DataFrame(ClosePrices)
 
 
 ##3) Plot the ACF. What does this suggest about the order of integration?
+from statsmodels.graphics.tsaplots import plot_acf
+plot_acf(btc_df)
+plt.show()
 
 ##4) Apply an augmented Dickey Fuller test. What does the test result tell you about the order of integration?
 
