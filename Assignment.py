@@ -27,15 +27,15 @@ plot_pacf(btc_df)
 
 
 ##4) Apply an augmented Dickey Fuller test. What does the test result tell you about the order of integration?
-ADF = statsmodels.tsa.stattools.adfuller(btc_df, autolag="AIC")
-print(ADF)
+ADF = statsmodels.tsa.stattools.adfuller(btc_df, autolag='AIC')
+#print(ADF)
 #27?
 
 
 ##5) Estimate the Hurst statistic. What does the test result tell you about the stationarity of the series.
-
-
-
+from hurst import compute_Hc
+hs = compute_Hc(btc_df)
+print(hs)
 ##6) Difference the series using fractional differencing and the d that you estimate.
 
 ##7) Estimate an ARMA model (Use the AIC to help determine the proper specification)
