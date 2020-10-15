@@ -19,27 +19,34 @@ btc_df = pd.DataFrame(ClosePrices)
 ##3) Plot the ACF. What does this suggest about the order of integration?
 from statsmodels.graphics.tsaplots import plot_acf
 plot_acf(btc_df)
-#Non stationary
+#Non stationary, could be fractional intergrated 
 from statsmodels.graphics.tsaplots import plot_pacf
 plot_pacf(btc_df)
-#plt.show()
+plt.show()
 #2 lags
 
-
 ##4) Apply an augmented Dickey Fuller test. What does the test result tell you about the order of integration?
-ADF = statsmodels.tsa.stattools.adfuller(btc_df, autolag='AIC')
+ADF = statsmodels.tsa.stattools.adfuller(ClosePrices, maxlag=None, regression='ct', autolag='AIC')
 #print(ADF)
-#27?
-
+#27 lags
 
 ##5) Estimate the Hurst statistic. What does the test result tell you about the stationarity of the series.
 from hurst import compute_Hc
-hurst, s, d = compute_Hc(btc_df, kind='price')
-#print(hs)
-print(hurst)
+hurst, s, data = compute_Hc(btc_df, kind='price')
+#print(hurst)
+#1.19
+
 
 ##6) Difference the series using fractional differencing and the d that you estimate.
+d = hurst - 0.5
+print(d)
+from fracdiff import Fracdiff
+fd = Fracdiff(d)
+btc_diff = fd.transform(btc_df)
+print(btc_diff.head())
 
 ##7) Estimate an ARMA model (Use the AIC to help determine the proper specification)
+
+
 
 ##8) Estimate a GARCH model (Use the AIC to help determine the proper specification).
