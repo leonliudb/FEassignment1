@@ -14,7 +14,7 @@ ClosePrices = BTCPrices['Close']
 
 btc_df = pd.DataFrame(ClosePrices)
 #print(btc_df.head(9))
-
+#print(btc_df['2018-01-04':'2018-01-06'])
 
 ##3) Plot the ACF. What does this suggest about the order of integration?
 from statsmodels.graphics.tsaplots import plot_acf
@@ -34,8 +34,10 @@ ADF = statsmodels.tsa.stattools.adfuller(btc_df, autolag='AIC')
 
 ##5) Estimate the Hurst statistic. What does the test result tell you about the stationarity of the series.
 from hurst import compute_Hc
-hs = compute_Hc(btc_df)
-print(hs)
+hurst, s, d = compute_Hc(btc_df, kind='price')
+#print(hs)
+print(hurst)
+
 ##6) Difference the series using fractional differencing and the d that you estimate.
 
 ##7) Estimate an ARMA model (Use the AIC to help determine the proper specification)
