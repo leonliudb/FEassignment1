@@ -1,6 +1,8 @@
 import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
+import statsmodels
+
 
 ##1) Download daily prices from of Bitcoin (BIT-USD) from Yahoo for period 9/17/2014-9/30/2020.
 
@@ -17,11 +19,22 @@ btc_df = pd.DataFrame(ClosePrices)
 ##3) Plot the ACF. What does this suggest about the order of integration?
 from statsmodels.graphics.tsaplots import plot_acf
 plot_acf(btc_df)
-plt.show()
+#Non stationary
+from statsmodels.graphics.tsaplots import plot_pacf
+plot_pacf(btc_df)
+#plt.show()
+#2 lags
+
 
 ##4) Apply an augmented Dickey Fuller test. What does the test result tell you about the order of integration?
+ADF = statsmodels.tsa.stattools.adfuller(btc_df, autolag="AIC")
+print(ADF)
+#27?
+
 
 ##5) Estimate the Hurst statistic. What does the test result tell you about the stationarity of the series.
+
+
 
 ##6) Difference the series using fractional differencing and the d that you estimate.
 
